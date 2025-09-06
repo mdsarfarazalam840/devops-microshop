@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microshop-catalogue
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: catalogue
+  template:
+    metadata:
+      labels:
+        app: catalogue
+    spec:
+      containers:
+        - name: catalogue
+          image: "{{ .Values.catalogue.image.repository }}:{{ .Values.catalogue.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.catalogue.service.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: microshop-catalogue
+spec:
+  type: {{ .Values.catalogue.service.type }}
+  selector:
+    app: catalogue
+  ports:
+    - port: {{ .Values.catalogue.service.port }}
+      targetPort: {{ .Values.catalogue.service.port }}

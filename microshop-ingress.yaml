@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: microshop-ingress
+  namespace: default    # <- replace with your namespace (e.g. microshop or default)
+  annotations:
+    # optional: keep it simple, no complex rewrites needed
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: microshop.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: microshop-frontend    # <- replace if your frontend service name differs
+            port:
+              number: 3000              # <- replace with the container port of your frontend

@@ -1,0 +1,25 @@
+replicaCount: 1
+
+frontend:
+  image:
+    repository: ajaysin/frontend
+    tag: latest
+  service:
+    type: ClusterIP
+    port: 3000
+
+catalogue:
+  image:
+    repository: ajaysin/catalogue
+    tag: latest
+  service:
+    type: ClusterIP
+    port: 3001
+
+carts:
+  image:
+    repository: ajaysin/carts
+    tag: latest
+  service:
+    type: ClusterIP
+    port: 3002
